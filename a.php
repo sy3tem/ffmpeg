@@ -14,40 +14,47 @@ foreach($str[2] as $key=>$val)
 	if(!empty($line[$key])&&$line[$key]==2)
 	{
 		$tmp['sub'][]= $key;
-		
+		$tmp['line'][] = check($str[2][$key-1]);
+		$tmp['line'][] = $str[2][$key-1];
 	}
-	//$time[$key] = check(str_replace(',','.',$val));
-	
-	//$arr[] = array('old'=>$val,'new'=>date('H:i:s',$time));
+	$time = check($val);
+	$arr[] = array('old'=>$val,'new'=>gmdate('H:i:s',$time));
 }
-//print_r($tmp);
+//var_dump(gmdate('H:i:s',check($tmp['line'][0])));
+//var_dump($tmp['line'][0]);
+//exit;//print_r($tmp);exit;
+$next = $tmp['sub'];
+array_shift($next);
+array_push($next,$tmp['count']);
+//print_r($next);exit;
+$n = array();
 foreach($tmp['sub'] as $k=>$t)
 {
-	if($t == reset($tmp['sub']))
-	{
-		//echo 111;
-		$s1 = $tmp['count'] - $t;
-		$s2 = $tmp['sub'][$k+1] - $t;
-		//echo $t."###\n".$tmp['sub'][$k+1]."###\n".$s1."\n".$s2;
-		$n[$k] = array_slice($str[2],$s1,$s2);
-	}
-	elseif($t==end($tmp['sub'])){
-		//echo 222;
-	}
-	else{
-		//echo 333;
-	}
+	$len = $next[$k] - $t;
+	$n+= array_slice($str[2],$t,$len,true);//array('start'=>$t,'len'=>$len); 
+	
 }
-print_r($n);
+//print_r($asd);
+foreach($n as $k2=>$v2)
+{
+	$time = retime($tmp['line'][0],check($v2));
+	$arr[$k2] = array('old'=>$v2,'new'=>gmdate('H:i:s',$time));
+}
+print_r($arr);
 //$newsrt = array_slice($str[2],0,end($tmp['sub']));
 //print_r($newsrt);
 //print_r($time);
 //print_r($str[1]);
+function addtime($t1,$t2)
+{
+	
+}
 function check($time)
 {
 if(!$time){
 $ret = 0;
 }else{
+	$time = str_replace(',','.',$time);
     $parsed = date_parse($time);
     $ret = $parsed['hour'] * 3600 + $parsed['minute'] * 60 + $parsed['second'];
 }
