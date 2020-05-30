@@ -2,7 +2,7 @@
 class ddsrt{
 	public static function Down($file)
 	{
-		$token = 'Yw071qO6bYBmlDSFn3uL1oFzgnVt3UN1';
+		$token = '3xqhrdBzbdmiSv3aJg5zx7cQhzLMK5OW';
 $api = 'http://api.assrt.net/v1/sub/search?token='.$token.'&q='.$file;//.$name;
 $rsp = json_decode(file_get_contents($api),true);
 print_r($rsp);exit;
