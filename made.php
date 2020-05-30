@@ -13,7 +13,7 @@ exec('mkdir -p '.$dir.'out/');
 for($i=318;$i<=$avg-500;$i+=mt_rand(318,888))
 {
 	$start = gmdate('H:i:s',$i);
-	$len = mt_rand(318,888);
+	$len = mt_rand(68,318);
 	$cmd = 'ffmpeg -y -i '.$file.' -ss '.$start.' -t '.$len.' -vcodec copy -acodec copy '.$dir.'out/'.$i.'.mp4';
 	echo $cmd;
 	exec($cmd);//exit;
